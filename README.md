@@ -1,43 +1,18 @@
-# Map manager DatoCMS plugin
+# DatoCMS plugin: Mapbox draw
 
-DatoCMS plugin for managing items on a map
+**DatoCMS plugin for drawing shapes on a map**
 
-## Configuration
+_Status: proof-of-concept_
 
-[Describe/screenshot any global/instance parameters this plugin requires]
 
-## Development
+## Contributing
 
-Install all the project dependencies with:
+See [contributing.md](contributing.md).
 
-```
-yarn install
-```
+## Credits
 
-Add this plugin in development mode to one of your DatoCMS project with:
+Scaffolded using [DatoCMS plugin Yeoman generator](https://github.com/datocms/generator-datocms-plugin).
 
-```
-yarn addToProject
-```
+## License
 
-Start the local development server with:
-
-```
-yarn start
-```
-
-The plugin will be served from [http://localhost:5000/](http://localhost:5000/). Insert this URL as the plugin [Entry point URL](https://www.datocms.com/docs/plugins/creating-a-new-plugin/).
-
-## Publishing
-
-Before publishing this plugin, make sure:
-
-* you've properly described any configuration parameters in this README file;
-* you've properly compiled this project's `package.json` following the [official rules](https://www.datocms.com/docs/plugins/publishing/);
-* you've added a cover image (`cover.png`) and a preview GIF (`preview.gif`) into the `docs` folder.
-
-When everything's ready, just run:
-
-```
-yarn publish
-```
+[MIT Licensed](license) by [De Voorhoede](https://www.voorhoede.nl).

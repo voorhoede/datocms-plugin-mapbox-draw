@@ -1,4 +1,4 @@
-import './style.sass';
+import './style.scss';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';

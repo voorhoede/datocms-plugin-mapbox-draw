@@ -1,15 +1,17 @@
 {
-  "name": "datocms-plugin-mapboxdraw",
+  "name": "datocms-plugin-mapbox-draw",
   "homepage": "https://github.com/voorhoede/datocms-plugin-mapbox-draw",
-  "version": "0.0.1",
-  "description": "DatoCMS plugin for drawing polygons on a mapbox-gl map",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DatoCMS plugin for drawing shapes on a  map",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --port 5000",
-    "dist": "NODE_ENV=production webpack --progress",
+    "dev": "NODE_ENV=development webpack-dev-server --port 5000",
+    "build": "NODE_ENV=production webpack --progress",
     "addToProject": "yo datocms-plugin:add-to-project",
     "prepublishOnly": "rimraf lib dist && mkdir dist && npm run dist",
     "lint": "eslint \"./src/*.{js,jsx}\"",
+    "start": "npm run dev",
     "test": "echo 1"
   },
   "keywords": [
