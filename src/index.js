@@ -23,7 +23,7 @@ window.DatoCmsPlugin.init((plugin) => {
 
   const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/satellite-v9',
     center: [
       (boundsEurope[0][0] + boundsEurope[0][1]) / 2,
       (boundsEurope[1][0] + boundsEurope[1][1]) / 2,
