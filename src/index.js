@@ -2,6 +2,7 @@ import './style.scss';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
+// import geojsonExtent from '@mapbox/geojson-extent';
 
 window.DatoCmsPlugin.init((plugin) => {
   plugin.startAutoResizer();
@@ -38,9 +39,15 @@ window.DatoCmsPlugin.init((plugin) => {
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [4.47917, 51.9225], // starting position
-    zoom: 14, // starting zoom
+    center: [11.607742, 48.084616], // starting position
+    // zoom: 3,
   });
+
+  // Fit map to Europe http://bboxfinder.com/
+  map.fitBounds([
+    [-10.255051, 41.155329],
+    [31.602859, 54.934588],
+  ]);
 
   // Add zoom and rotation controls to the map.
   map.addControl(new mapboxgl.NavigationControl());
