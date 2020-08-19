@@ -1,13 +1,15 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  entry: __dirname + '/src/index.js',
+  entry: path.join(__dirname, '/src/index.js'),
   mode: process.env.NODE_ENV,
   output: {
-    path: __dirname + '/dist',
+    path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
   },
   devtool: 'source-map',
@@ -23,7 +25,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: __dirname + '/src',
+        include: path.join(__dirname, '/src'),
         loader: 'eslint-loader',
         enforce: 'pre',
       },
@@ -33,7 +35,7 @@ module.exports = {
         use: { loader: 'babel-loader' },
       },
       {
-        test: /\.sass$/,
+        test: /\.scss$/,
         use: [
           'style-loader',
           'css-loader',
@@ -51,8 +53,8 @@ module.exports = {
       append: false,
       publicPath: '',
       tags: [
-        'https://unpkg.com/datocms-plugins-sdk@0.0.9/dist/sdk.js',
-        'https://unpkg.com/datocms-plugins-sdk@0.0.9/dist/sdk.css',
+        'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.js',
+        'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.css',
       ],
     }),
   ].filter(Boolean),

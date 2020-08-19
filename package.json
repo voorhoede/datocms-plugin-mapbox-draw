@@ -41,12 +41,12 @@
     "parameters": {
       "global": [
         {
-          "id": "developmentMode",
-          "label": "Development mode",
-          "type": "boolean",
+          "id": "mapboxApiToken",
+          "label": "Mapbox API Token",
+          "type": "string",
           "required": true,
           "default": false,
-          "hint": "Shows debug messages in console"
+          "hint": ""
         }
       ],
       "instance": []
