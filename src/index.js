@@ -1,47 +1,41 @@
 import './style.scss';
-
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import geojsonExtent from '@mapbox/geojson-extent';
 
 window.DatoCmsPlugin.init((plugin) => {
   plugin.startAutoResizer();
 
-  mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlZmFua29vbCIsImEiOiJjamxwNHBmYzEwNnU0M3FwbGx5OHduM3hyIn0.QYB7wWeUne1xuNWlFClzMg';
+  const { mapboxApiToken } = plugin.parameters.global;
+  mapboxgl.accessToken = mapboxApiToken;
 
   const container = document.createElement('div');
   container.classList.add('container');
-  container.setAttribute('id', 'map');
-
+  container.id = 'map';
   document.body.appendChild(container);
 
-  // Init mapbox map
+  // Fit map to Europe http://bboxfinder.com/
+  const boundsEurope = [
+    [-10.255051, 41.155329],
+    [31.602859, 54.934588],
+  ];
 
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [11.607742, 48.084616], // starting position
-    // zoom: 3,
+    center: [
+      (boundsEurope[0][0] + boundsEurope[0][1]) / 2,
+      (boundsEurope[1][0] + boundsEurope[1][1]) / 2,
+    ],
+    zoom: 3,
   });
 
-  // Fit map to Europe http://bboxfinder.com/
-  map.fitBounds([
-    [-10.255051, 41.155329],
-    [31.602859, 54.934588],
-  ]);
-
-  // Add geocoder
-  const geocoder = new MapboxGeocoder({
+  map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl,
-  });
-
-  map.addControl(geocoder);
-
-  // Add zoom and rotation controls to the map.
+  }));
   map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-
-  // Add polygon draw controls to the map.
 
   const draw = new MapboxDraw({
     displayControlsDefault: false,
@@ -50,17 +44,22 @@ window.DatoCmsPlugin.init((plugin) => {
       trash: true,
     },
   });
-
   map.addControl(draw, 'top-left');
 
   function loadFeatures() {
     let data = {};
     try {
-      data = JSON.parse(plugin.getFieldValue(plugin.fieldPath));
+      data = JSON.parse(plugin.getFieldValue(plugin.fieldPath)) || {};
     } catch (error) {
       console.error('unable to parse initial value', error);
     }
-    draw.add(data);
+    if (data.features) {
+      draw.add(data);
+      const bounds = geojsonExtent(data);
+      map.fitBounds(bounds, { padding: 20 });
+    } else {
+      map.fitBounds(boundsEurope);
+    }
   }
 
   function updateFeatures() {
