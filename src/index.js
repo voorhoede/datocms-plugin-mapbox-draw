@@ -2,7 +2,7 @@ import './style.scss';
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-// import geojsonExtent from '@mapbox/geojson-extent';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
 window.DatoCmsPlugin.init((plugin) => {
   plugin.startAutoResizer();
@@ -14,25 +14,6 @@ window.DatoCmsPlugin.init((plugin) => {
   container.setAttribute('id', 'map');
 
   document.body.appendChild(container);
-
-  // Link mapbox styles
-
-  // Get HTML head element
-  const head = document.getElementsByTagName('HEAD')[0];
-
-  // Create new link Elements
-  const linkDefault = document.createElement('link');
-  const linkDraw = document.createElement('link');
-
-  linkDefault.rel = 'stylesheet';
-  linkDefault.type = 'text/css';
-  linkDefault.href = 'https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css';
-  head.appendChild(linkDefault);
-
-  linkDraw.rel = 'stylesheet';
-  linkDraw.type = 'text/css';
-  linkDraw.href = 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.css';
-  head.appendChild(linkDraw);
 
   // Init mapbox map
 
@@ -49,8 +30,16 @@ window.DatoCmsPlugin.init((plugin) => {
     [31.602859, 54.934588],
   ]);
 
+  // Add geocoder
+  const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl,
+  });
+
+  map.addControl(geocoder);
+
   // Add zoom and rotation controls to the map.
-  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
   // Add polygon draw controls to the map.
 

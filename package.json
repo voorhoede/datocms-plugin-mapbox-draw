@@ -81,6 +81,7 @@
   "dependencies": {
     "@mapbox/geojson-extent": "^0.3.2",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
+    "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "html-webpack-tags-plugin": "^2.0.17",
     "mapbox-gl": "^1.12.0"
   }

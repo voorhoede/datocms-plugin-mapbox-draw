@@ -55,6 +55,9 @@ module.exports = {
       tags: [
         'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.js',
         'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.css',
+        'https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css',
+        'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.2.0/mapbox-gl-draw.css',
+        'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css',
       ],
     }),
   ].filter(Boolean),
