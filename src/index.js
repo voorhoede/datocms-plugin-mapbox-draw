@@ -17,7 +17,7 @@ window.DatoCmsPlugin.init((plugin) => {
 
   const fileInput = document.createElement('input');
   fileInput.type = 'file';
-  fileInput.accept = 'json, .geojson';
+  fileInput.accept = '.json, .geojson';
   fileInput.classList.add('file-input');
   fileInput.id = 'file-input';
   // This actually inserts the input after the container
