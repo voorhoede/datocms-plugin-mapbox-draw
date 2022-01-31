@@ -20,7 +20,8 @@ window.DatoCmsPlugin.init((plugin) => {
   fileInput.accept = 'json, .geojson';
   fileInput.classList.add('file-input');
   fileInput.id = 'file-input';
-  container.appendChild(fileInput);
+  // This actually inserts the input after the container
+  container.parentNode.insertBefore(fileInput, container.nextSibling);
 
   // Fit map to Europe http://bboxfinder.com/
   const boundsEurope = [
@@ -53,6 +54,13 @@ window.DatoCmsPlugin.init((plugin) => {
   });
   map.addControl(draw, 'top-left');
 
+  function addFeatures(features) {
+    draw.add(features);
+    const allFeatures = draw.getAll();
+    const bounds = geojsonExtent(allFeatures);
+    map.fitBounds(bounds, { padding: 20 });
+  }
+
   function loadFeatures() {
     let data = {};
     try {
@@ -61,9 +69,7 @@ window.DatoCmsPlugin.init((plugin) => {
       console.error('unable to parse initial value', error);
     }
     if (data.features) {
-      draw.add(data);
-      const bounds = geojsonExtent(data);
-      map.fitBounds(bounds, { padding: 20 });
+      addFeatures(data);
     } else {
       map.fitBounds(boundsEurope);
     }
@@ -82,5 +88,19 @@ window.DatoCmsPlugin.init((plugin) => {
 
   fileInput.addEventListener('change', (event) => {
     console.log(event);
+    const file = event.target.files[0];
+    const fileType = file.name.split('.').pop();
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const fileData = e.target.result;
+
+      if (fileType === 'json' || fileType === 'geojson') {
+        const features = JSON.parse(fileData);
+        addFeatures(features);
+      }
+    };
+
+    reader.readAsText(file);
   });
 });
