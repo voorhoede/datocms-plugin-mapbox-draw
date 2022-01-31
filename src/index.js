@@ -87,7 +87,6 @@ window.DatoCmsPlugin.init((plugin) => {
   map.on('draw.update', updateFeatures);
 
   fileInput.addEventListener('change', (event) => {
-    console.log(event);
     const file = event.target.files[0];
     const fileType = file.name.split('.').pop();
     const reader = new FileReader();
