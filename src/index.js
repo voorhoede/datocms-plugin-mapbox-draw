@@ -15,6 +15,13 @@ window.DatoCmsPlugin.init((plugin) => {
   container.id = 'map';
   document.body.appendChild(container);
 
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'json, .geojson';
+  fileInput.classList.add('file-input');
+  fileInput.id = 'file-input';
+  container.appendChild(fileInput);
+
   // Fit map to Europe http://bboxfinder.com/
   const boundsEurope = [
     [-10.255051, 41.155329],
@@ -72,4 +79,8 @@ window.DatoCmsPlugin.init((plugin) => {
   map.on('draw.create', updateFeatures);
   map.on('draw.delete', updateFeatures);
   map.on('draw.update', updateFeatures);
+
+  fileInput.addEventListener('change', (event) => {
+    console.log(event);
+  });
 });
