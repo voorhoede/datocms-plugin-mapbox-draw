@@ -97,6 +97,7 @@ window.DatoCmsPlugin.init((plugin) => {
       if (fileType === 'json' || fileType === 'geojson') {
         const features = JSON.parse(fileData);
         addFeatures(features);
+        updateFeatures();
       }
     };
 
